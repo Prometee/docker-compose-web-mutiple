@@ -24,6 +24,6 @@ script:
   - docker-compose exec app5.6 php -v
   - docker-compose exec app7.1 php -v
   - docker-compose exec app7.2 php -v
-  - docker-compose exec logs nginx
-  - docker-compose exec logs db
+  - docker-compose logs nginx
+  - docker-compose logs db
   - docker ps -a
