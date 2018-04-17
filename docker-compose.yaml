@@ -75,7 +75,7 @@ services:
       - app7.1
       - app7.2
     volumes:
-      - ./config/nginx/docker-multiple-entrypoint:/usr/local/bin/docker-nginx-entrypoint
+      - ./config/nginx/docker-nginx-multiple-entrypoint:/usr/local/bin/docker-nginx-entrypoint
       - ./config/nginx/conf.d/named-symfony-2.conf:/etc/nginx/conf.d/symfony-2.conf.tpl
       - ./config/nginx/conf.d/named-symfony-flex.conf:/etc/nginx/conf.d/symfony-flex.conf.tpl
     ports:
