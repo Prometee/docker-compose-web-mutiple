@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+i=0
+for CURRENT_SERVER_NAME in ${APP_VHOST_LIST}
+do
+    CURRENT_PROJECT_TYPE="$(echo ${APP_PROJECT_TYPE_LIST} | cut -d' ' -f$i)"
+    
+    SCRIPT_PROJECT_TYPE="/usr/local/bin/script-${CURRENT_PROJECT_TYPE}.sh"
+    if [ -x "${SCRIPT_PROJECT_TYPE}" ]
+    then
+        export APP_PROJECT_TYPE=${CURRENT_PROJECT_TYPE}
+        export APP_ROOT=${APP_ROOT_MUTIPLE}/${CURRENT_SERVER_NAME}
+        export APP_CACHE_DIR="$(echo ${APP_CACHE_DIR_LIST} | cut -d' ' -f$i)"
+        export APP_LOGS_DIR="$(echo ${APP_LOGS_DIR_LIST} | cut -d' ' -f$i)"
+        export APP_SESSIONS_DIR="$(echo ${APP_SESSIONS_DIR_LIST} | cut -d' ' -f$i)"
+        ${SCRIPT_PROJECT_TYPE}
+    fi
+    ((i++))
+done
+
+exec "$@"

@@ -6,13 +6,19 @@ services:
       context: ${DOCKER_APP_CONFIG_DIR}
       args:
         PHP_VERSION: 5.6
-        APP_ROOT: ${APP_ROOT}
+        APP_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
     depends_on:
       - db
       - mailhog
     volumes:
       # PHP config files
-      - ./php5.6/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/php5.6/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/docker-app-multiple-entrypoint:/usr/local/bin/docker-app-multiple-entrypoint
+    entrypoint:
+      - docker-app-multiple-entrypoint
+      - docker-php-entrypoint
+    command:
+      - php-fpm
     ports:
       - "${PHP_5_6_PORT}:9000"
   app7.1:
@@ -20,13 +26,19 @@ services:
       context: ${DOCKER_APP_CONFIG_DIR}
       args:
         PHP_VERSION: 7.1
-        APP_ROOT: ${APP_ROOT}
+        APP_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
     depends_on:
       - db
       - mailhog
     volumes:
       # PHP config files
-      - ./php7.1/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/php7.1/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/docker-app-multiple-entrypoint:/usr/local/bin/docker-app-multiple-entrypoint
+    entrypoint:
+      - docker-app-multiple-entrypoint
+      - docker-php-multiple-entrypoint
+    command:
+      - php-fpm
     ports:
       - "${PHP_7_1_PORT}:9000"
   app7.2:
@@ -34,13 +46,19 @@ services:
       context: ${DOCKER_APP_CONFIG_DIR}
       args:
         PHP_VERSION: 7.2
-        APP_ROOT: ${APP_ROOT}
+        APP_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
     depends_on:
       - db
       - mailhog
     volumes:
       # PHP config files
-      - ./php7.2/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/php7.2/conf.custom.d:/usr/local/etc/php/conf.custom.d/
+      - ./config/app/docker-app-multiple-entrypoint:/usr/local/bin/docker-app-multiple-entrypoint
+    entrypoint:
+      - docker-app-multiple-entrypoint
+      - docker-php-entrypoint
+    command:
+      - php-fpm
     ports:
       - "${PHP_7_2_PORT}:9000"
 
@@ -48,7 +66,7 @@ services:
     build:
       context: ${DOCKER_NGINX_CONFIG_DIR}
       args:
-        NGINX_ROOT: ${APP_ROOT}
+        NGINX_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
     depends_on:
       - app5.6
       - app7.1

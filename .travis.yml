@@ -14,6 +14,7 @@ before_install:
   - cp .env.dist .env
   - cp docker-compose.override.yaml.dist docker-compose.override.yaml
   - mkdir -p my_local_project_1/web my_local_project_2/web my_local_project_3/public my_local_project_4/public
+  - touch my_local_project_1/web/app_dev.php my_local_project_2/web/app_dev.php my_local_project_3/public/index.php my_local_project_4/public/index.php
   - sed -i "s/PROJECT_DIR=..\//PROJECT_DIR=$PROJECT_DIR/" .env
 
 script:

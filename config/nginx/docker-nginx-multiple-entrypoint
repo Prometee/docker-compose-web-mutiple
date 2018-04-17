@@ -1,24 +1,31 @@
 #!/bin/sh
 set -e
 
-for NGINX_CURRENT_PROJECT_TYPE in *
+i=0
+for CURRENT_SERVER_NAME in ${NGINX_VHOST_LIST}
 do
-    TPL_CONF_FILE="/etc/nginx/conf.d/${NGINX_CURRENT_PROJECT_TYPE}.conf.tpl"
-    if [[ -d "${NGINX_CURRENT_PROJECT_TYPE}" && -f "${TPL_CONF_FILE}" ]]
+    CURRENT_PROJECT_TYPE="$(echo ${NGINX_PROJECT_TYPE_LIST} | cut -d' ' -f$i)"
+    CURRENT_WEB_INDEX_FILE="$(echo ${NGINX_WEB_INDEX_FILE_LIST} | cut -d' ' -f$i)"
+    CURRENT_WEB_FOLDER="$(echo ${NGINX_WEB_FOLDER_LIST} | cut -d' ' -f$i)"
+    CURRENT_PHP_VERSION="$(echo ${NGINX_PHP_VERSION_LIST} | cut -d' ' -f$i)"
+    
+    TPL_CONF_FILE="/etc/nginx/conf.d/${CURRENT_PROJECT_TYPE}.conf.tpl"
+    if [[ -d "${NGINX_ROOT_MULTIPLE}/${CURRENT_SERVER_NAME}" && -f "${TPL_CONF_FILE}" ]]
     then
-        cd "${NGINX_CURRENT_PROJECT_TYPE}"
-        for NGINX_CURRENT_SERVER_NAME in *
-        do
-            if [ -d "${NGINX_CURRENT_SERVER_NAME}" ]
-            then
-                export NGINX_CURRENT_PROJECT_TYPE
-                export NGINX_CURRENT_SERVER_NAME
-                export DOLLAR="$"
-                envsubst < $TPL_CONF_FILE > /etc/nginx/conf.d/${NGINX_CURRENT_PROJECT_TYPE}-${NGINX_CURRENT_SERVER_NAME}.conf
-            fi
-        done
-        cd ..
+        CURRENT_CONF_FILE="/etc/nginx/conf.d/${CURRENT_PROJECT_TYPE}-${CURRENT_SERVER_NAME}.conf"
+        export NGINX_PROJECT_TYPE=${CURRENT_PROJECT_TYPE}
+        export NGINX_ROOT="${NGINX_ROOT_MULTIPLE}/${CURRENT_SERVER_NAME}"
+        export NGINX_WEB_INDEX_FILE=${CURRENT_WEB_INDEX_FILE}
+        export NGINX_WEB_FOLDER=${CURRENT_WEB_FOLDER}
+        export NGINX_WEB_INDEX_FILE_DOT_ESCAPED=${NGINX_WEB_INDEX_FILE//./\\.}
+        export NGINX_PHP_HOST="app${CURRENT_PHP_VERSION}"
+        export NGINX_PHP_PORT="9000"
+        export DOLLAR="$"
+
+        envsubst < "$TPL_CONF_FILE"> "${CURRENT_CONF_FILE}"
+        sed -i "/server {/a\n    server_name ${CURRENT_SERVER_NAME};\n\n" "${CURRENT_CONF_FILE}"
     fi
+    ((i++))
 done
 
 exec "$@"
