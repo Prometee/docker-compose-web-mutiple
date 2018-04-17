@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-i=0
+i=1
 for CURRENT_SERVER_NAME in ${APP_VHOST_LIST}
 do
     CURRENT_PROJECT_TYPE="$(echo ${APP_PROJECT_TYPE_LIST} | cut -d' ' -f$i)"
@@ -16,7 +16,7 @@ do
         export APP_SESSIONS_DIR="$(echo ${APP_SESSIONS_DIR_LIST} | cut -d' ' -f$i)"
         ${SCRIPT_PROJECT_TYPE}
     fi
-    ((i++))
+    i=`expr $i + 1`
 done
 
 exec "$@"

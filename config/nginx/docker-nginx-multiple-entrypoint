@@ -1,7 +1,10 @@
 #!/bin/sh
+
 set -e
 
-i=0
+rm -f /etc/nginx/conf.d/*-*.conf
+
+i=1
 for CURRENT_SERVER_NAME in ${NGINX_VHOST_LIST}
 do
     CURRENT_PROJECT_TYPE="$(echo ${NGINX_PROJECT_TYPE_LIST} | cut -d' ' -f$i)"
@@ -23,9 +26,9 @@ do
         export DOLLAR="$"
 
         envsubst < "$TPL_CONF_FILE"> "${CURRENT_CONF_FILE}"
-        sed -i "/server {/a\n    server_name ${CURRENT_SERVER_NAME};\n\n" "${CURRENT_CONF_FILE}"
+        sed -i "/server {/a\\\n    server_name ${CURRENT_SERVER_NAME};" "${CURRENT_CONF_FILE}"
     fi
-    ((i++))
+    i=`expr $i + 1`
 done
 
 exec "$@"

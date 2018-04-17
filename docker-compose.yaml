@@ -38,7 +38,7 @@ services:
       - ./config/app/docker-app-multiple-entrypoint:/usr/local/bin/docker-app-multiple-entrypoint
     entrypoint:
       - docker-app-multiple-entrypoint
-      - docker-php-multiple-entrypoint
+      - docker-php-entrypoint
     command:
       - php-fpm
     ports:
@@ -68,16 +68,14 @@ services:
   nginx:
     build:
       context: ${DOCKER_NGINX_CONFIG_DIR}
-      args:
-        NGINX_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
+    environment:
+      NGINX_ROOT_MULTIPLE: ${APP_ROOT_MULTIPLE}
     depends_on:
       - app5.6
       - app7.1
       - app7.2
     volumes:
       - ./config/nginx/docker-nginx-multiple-entrypoint:/usr/local/bin/docker-nginx-entrypoint
-      - ./config/nginx/conf.d/named-symfony-2.conf:/etc/nginx/conf.d/symfony-2.conf.tpl
-      - ./config/nginx/conf.d/named-symfony-flex.conf:/etc/nginx/conf.d/symfony-flex.conf.tpl
     ports:
       - "${NGINX_PORT}:80"
       - "${NGINX_S_PORT}:443"
