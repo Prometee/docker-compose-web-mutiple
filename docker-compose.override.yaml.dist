@@ -1,0 +1,34 @@
+version: "3.6"
+
+services:
+    app5.6:
+      volumes:
+        #Project 1
+        - $[PROJECT_DIR}/my_local_project_1:${APP_ROOT}/symfony-2/my_local_project_1.local:cached
+        - ${APP_ROOT}/symfony-2/my_local_project_1.local/app/cache
+        - ${APP_ROOT}/symfony-2/my_local_project_1.local/app/sessions
+        - ${APP_ROOT}/symfony-2/my_local_project_1.local/app/logs
+        #Project 2
+        - $[PROJECT_DIR}/my_local_project_2:${APP_ROOT}/symfony-2/my_local_project_2.local:cached
+        - ${APP_ROOT}/symfony-2/my_local_project_2.local/app/cache
+        - ${APP_ROOT}/symfony-2/my_local_project_2.local/app/sessions
+        - ${APP_ROOT}/symfony-2/my_local_project_2.local/app/logs
+    app7.1:
+      volumes:
+        #Project 3
+        - $[PROJECT_DIR}/my_local_project_3:${APP_ROOT}/symfony-flex/my_local_project_3.local:cached
+        - ${APP_ROOT}/symfony-flex/my_local_project_3.local/var/cache
+        - ${APP_ROOT}/symfony-flex/my_local_project_3.local/var/sessions
+        - ${APP_ROOT}/symfony-flex/my_local_project_3.local/var/logs
+        #Project 24
+        - $[PROJECT_DIR}/my_local_project_4:${APP_ROOT}/symfony-flex/my_local_project_4.local:cached
+        - ${APP_ROOT}/symfony-flex/my_local_project_4.local/app/cache
+        - ${APP_ROOT}/symfony-flex/my_local_project_4.local/app/sessions
+        - ${APP_ROOT}/symfony-flex/my_local_project_4.local/app/logs
+
+    nginx:
+      volumes:
+        - $[PROJECT_DIR}/my_local_project_1:${APP_ROOT}/symfony-2/my_local_project_1.local
+        - $[PROJECT_DIR}/my_local_project_2:${APP_ROOT}/symfony-2/my_local_project_2.local
+        - $[PROJECT_DIR}/my_local_project_3:${APP_ROOT}/symfony-flex/my_local_project_3.local
+        - $[PROJECT_DIR}/my_local_project_4:${APP_ROOT}/symfony-flex/my_local_project_4.local
