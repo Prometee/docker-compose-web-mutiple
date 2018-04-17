@@ -10,12 +10,12 @@ services:
         APP_SESSIONS_DIR_LIST: app/sessions app/sessions
       volumes:
         #Project ex 1
-        - $[PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost:cached
+        - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost:cached
         - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/cache
         - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/sessions
         - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/logs
         #Project ex 2
-        - $[PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
+        - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
         - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/cache
         - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/sessions
         - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/logs
@@ -28,12 +28,12 @@ services:
         APP_SESSIONS_DIR_LIST: var/sessions var/sessions
       volumes:
         #Project ex 3
-        - $[PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost:cached
+        - ${PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost:cached
         - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/cache
         - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/sessions
         - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/logs
         #Project ex 4
-        - $[PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost:cached
+        - ${PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost:cached
         - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/cache
         - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/sessions
         - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/logs
@@ -46,10 +46,10 @@ services:
         NGINX_WEB_FOLDER_LIST: web web public public
         NGINX_PHP_VERSION_LIST: 5.6 5.6 7.1 7.1
       volumes:
-        - $[PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost
-        - $[PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost
-        - $[PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost
-        - $[PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost
+        - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost
+        - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost
+        - ${PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost
+        - ${PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost
 
     db:
       environment:

@@ -29,7 +29,7 @@ You have to add a volume to the appropriate php container, here : `php5.6` and `
       APP_LOGS_DIR_LIST: app/logs
       APP_SESSIONS_DIR_LIST: app/sessions
     volumes:
-      - $[PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost:cached
+      - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost:cached
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/cache
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/sessions
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/logs
@@ -41,7 +41,7 @@ You have to add a volume to the appropriate php container, here : `php5.6` and `
       APP_LOGS_DIR_LIST: var/logs
       APP_SESSIONS_DIR_LIST: var/sessions
     volumes:
-      - $[PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
+      - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
       - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/cache
       - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/sessions
       - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/logs
@@ -57,8 +57,8 @@ You have to add the directory to the vhost :
       NGINX_WEB_FOLDER_LIST: web public
       NGINX_PHP_VERSION_LIST: 5.6 7.1
     volumes:
-      $[PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost
-      $[PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost
+      - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost
+      - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost
 ```
 
 Finally add some databases :
