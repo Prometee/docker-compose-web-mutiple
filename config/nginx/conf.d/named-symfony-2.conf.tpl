@@ -4,7 +4,7 @@ server {
 
     server_name ${NGINX_CURRENT_SERVER_NAME}
 
-    root ${NGINX_CURRENT_WEB_FOLDER};
+    root ${NGINX_CURRENT_WEB_FOLDER}/web;
 
     ssl_certificate /etc/ssl/certs/server-localhost.crt;
     ssl_certificate_key /etc/ssl/private/server-localhost.key;

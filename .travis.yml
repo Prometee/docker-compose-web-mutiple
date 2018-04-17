@@ -1,0 +1,28 @@
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.20.1 PROJECT_DIR=./
+
+before_install:
+  - sudo service mysql stop
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
+  - cp .env.dist .env
+  - cp docker-compose.override.yaml.dist docker-compose.override.yaml
+  - mkdir -p my_local_project_1/web my_local_project_2/web my_local_project_3/public my_local_project_4/public
+  - sed -i "s/PROJECT_DIR=var\/sessions/APP_SESSIONS_DIR=$PROJECT_DIR/" .env
+
+script:
+  - docker-compose config
+  - docker-compose build
+  - docker-compose up -d
+  - docker-compose exec app5.6 php -v
+  - docker-compose exec app7.1 php -v
+  - docker-compose exec app7.0 php -v
+  - docker-compose exec logs nginx
+  - docker-compose exec logs db
+  - docker ps -a

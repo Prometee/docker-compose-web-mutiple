@@ -3,7 +3,8 @@ set -e
 
 for NGINX_CURRENT_PROJECT_TYPE in *
 do
-    if [[ -d "${NGINX_CURRENT_PROJECT_TYPE}" && -f "/etc/nginx/conf.d/named-${NGINX_CURRENT_PROJECT_TYPE}.conf.tpl" ]]
+    TPL_CONF_FILE="/etc/nginx/conf.d/${NGINX_CURRENT_PROJECT_TYPE}.conf.tpl"
+    if [[ -d "${NGINX_CURRENT_PROJECT_TYPE}" && -f "${TPL_CONF_FILE}" ]]
     then
         cd "${NGINX_CURRENT_PROJECT_TYPE}"
         for NGINX_CURRENT_SERVER_NAME in *
@@ -13,7 +14,7 @@ do
                 export NGINX_CURRENT_PROJECT_TYPE
                 export NGINX_CURRENT_SERVER_NAME
                 export DOLLAR="$"
-                envsubst < /etc/nginx/conf.d/named-${NGINX_CURRENT_PROJECT_TYPE}.conf.tpl > /etc/nginx/conf.d/${NGINX_CURRENT_PROJECT_TYPE}-${NGINX_CURRENT_SERVER_NAME}.conf
+                envsubst < $TPL_CONF_FILE > /etc/nginx/conf.d/${NGINX_CURRENT_PROJECT_TYPE}-${NGINX_CURRENT_SERVER_NAME}.conf
             fi
         done
         cd ..
