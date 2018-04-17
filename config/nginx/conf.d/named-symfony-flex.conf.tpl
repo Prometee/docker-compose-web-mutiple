@@ -2,7 +2,7 @@ server {
     listen 80;
     listen 443 ssl http2;
 
-    server_name ${NGINX_CURRENT_SERVER_NAME}
+    server_name ${NGINX_CURRENT_SERVER_NAME};
 
     root ${NGINX_CURRENT_WEB_FOLDER}/public;
 
