@@ -2,7 +2,7 @@ services:
   - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.20.1 PROJECT_DIR=.\/
+  - DOCKER_COMPOSE_VERSION=1.20.1 PROJECT_DIR=.\\/
 
 before_install:
   - sudo service mysql stop
@@ -14,7 +14,7 @@ before_install:
   - cp .env.dist .env
   - cp docker-compose.override.yaml.dist docker-compose.override.yaml
   - mkdir -p my_local_project_1/web my_local_project_2/web my_local_project_3/public my_local_project_4/public
-  - sed -i "s/PROJECT_DIR=\.\.\//PROJECT_DIR=$PROJECT_DIR/" .env
+  - sed -i "s/PROJECT_DIR=..\//PROJECT_DIR=$PROJECT_DIR/" .env
 
 script:
   - docker-compose config
