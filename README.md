@@ -11,12 +11,17 @@ Copy the `docker-compose.override.yaml.dist` to `docker-compose.override.yaml`
 Edit the content of the `docker-compose.override.yaml` file to feet your need.
 You have to respect the hierarchy of the folders, so if you have this type of project :
 
-  * Project type Project 1 : symfony-2
-  * Virtual Host name for Project 1 = my_local_project_1.localhost
-  * Php version Project 1 = 5.6
-  * Project type Project 2 : symfony-flex
-  * Virtual Host name for Project 2 = my_local_project_2.localhost
-  * Php version Project 2 = 7.1
+  * Project type Project 1 : `symfony-2`
+  * Virtual Host name for Project 1 : `my_local_project_1.localhost`
+  * Php version Project 1 : `5.6`
+  * Local path on your machine : `${PROJECT_DIR}/my_local_project_1`
+  * Path within the docker container : `${APP_ROOT_MULTIPLE}/__THE_NAME_OF_THE_VHOST__`
+  
+  * Project type Project 2 : `symfony-flex`
+  * Virtual Host name for Project 2 : `my_local_project_2.localhost`
+  * Php version Project 2 : `7.1`
+  * Local path on your machine : `${PROJECT_DIR}/my_local_project_2`
+  * Path within the docker container : `${APP_ROOT_MULTIPLE}/__THE_NAME_OF_THE_VHOST__`
   
 You have to add a volume to the appropriate php container, here : `php5.6` and `php7.1`
 

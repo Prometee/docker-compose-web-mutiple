@@ -3,54 +3,48 @@ version: "3.6"
 services:
   app5.6:
     environment:
-      APP_VHOST_LIST: my_local_project_1.localhost my_local_project_2.localhost
-      APP_PROJECT_TYPE_LIST: symfony-2 symfony-2
-      APP_CACHE_DIR_LIST: app/cache app/cache
-      APP_LOGS_DIR_LIST: app/logs app/logs
-      APP_SESSIONS_DIR_LIST: app/sessions app/sessions
+      APP_VHOST_LIST: my_local_project_1.localhost
+      APP_PROJECT_TYPE_LIST: symfony-2
+      APP_CACHE_DIR_LIST: app/cache
+      APP_LOGS_DIR_LIST: app/logs
+      APP_SESSIONS_DIR_LIST: app/sessions
     volumes:
       #Project ex 1
       - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost:cached
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/cache
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/sessions
       - ${APP_ROOT_MULTIPLE}/my_local_project_1.localhost/app/logs
-      #Project ex 2
-      - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
-      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/cache
-      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/sessions
-      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/app/logs
   app7.1:
     environment:
-      APP_VHOST_LIST: my_local_project_3.localhost my_local_project_4.localhost
-      APP_PROJECT_TYPE_LIST: symfony-flex symfony-flex
-      APP_CACHE_DIR_LIST: var/cache var/cache
-      APP_LOGS_DIR_LIST: var/logs var/logs
-      APP_SESSIONS_DIR_LIST: var/sessions var/sessions
+      APP_VHOST_LIST: my_local_project_2.localhost my_local_project_3.localhost
+      APP_PROJECT_TYPE_LIST: symfony-flex symfony-2
+      APP_CACHE_DIR_LIST: var/cache app/cache
+      APP_LOGS_DIR_LIST: var/logs app/logs
+      APP_SESSIONS_DIR_LIST: var/sessions app/sessions
     volumes:
       #Project ex 3
-      - ${PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost:cached
-      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/cache
-      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/sessions
-      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/var/logs
+      - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost:cached
+      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/cache
+      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/sessions
+      - ${APP_ROOT_MULTIPLE}/my_local_project_2.localhost/var/logs
       #Project ex 4
-      - ${PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost:cached
-      - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/cache
-      - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/sessions
-      - ${APP_ROOT_MULTIPLE}/my_local_project_4.localhost/app/logs
+      - ${PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost:cached
+      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/app/cache
+      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/app/sessions
+      - ${APP_ROOT_MULTIPLE}/my_local_project_3.localhost/app/logs
 
   nginx:
     environment:
-      NGINX_VHOST_LIST: my_local_project_1.localhost my_local_project_2.localhost my_local_project_3.localhost my_local_project_4.localhost
-      NGINX_PROJECT_TYPE_LIST: symfony-2 symfony-2 symfony-flex symfony-flex
-      NGINX_WEB_INDEX_FILE_LIST: app_dev.php app_dev.php index.php index.php
-      NGINX_WEB_FOLDER_LIST: web web public public
-      NGINX_PHP_VERSION_LIST: 5.6 5.6 7.1 7.1
+      NGINX_VHOST_LIST: my_local_project_1.localhost my_local_project_2.localhost my_local_project_3.localhost
+      NGINX_PROJECT_TYPE_LIST: symfony-2 symfony-flex symfony-2
+      NGINX_WEB_INDEX_FILE_LIST: app_dev.php index.php app_dev.php
+      NGINX_WEB_FOLDER_LIST: web public web
+      NGINX_PHP_VERSION_LIST: 5.6 7.1 7.1
     volumes:
       - ${PROJECT_DIR}/my_local_project_1:${APP_ROOT_MULTIPLE}/my_local_project_1.localhost
       - ${PROJECT_DIR}/my_local_project_2:${APP_ROOT_MULTIPLE}/my_local_project_2.localhost
       - ${PROJECT_DIR}/my_local_project_3:${APP_ROOT_MULTIPLE}/my_local_project_3.localhost
-      - ${PROJECT_DIR}/my_local_project_4:${APP_ROOT_MULTIPLE}/my_local_project_4.localhost
 
   db:
     environment:
-      MYSQL_DATABASE_LIST: my_db_1 my_db_2 my_db_3 my_db_4
+      MYSQL_DATABASE_LIST: my_db_1 my_db_2 my_db_3
