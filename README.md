@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Prometee/docker-compose-web-multiple.svg?branch=master)](https://travis-ci.org/Prometee/docker-compose-web)
+[![Build Status](https://travis-ci.org/Prometee/docker-compose-web-mutiple.svg?branch=master)](https://travis-ci.org/Prometee/docker-compose-web-mutiple)
 
 Docker Compose for mutiple web hosts 
 ====================================
